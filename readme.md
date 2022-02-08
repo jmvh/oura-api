@@ -10,10 +10,11 @@ Fetch daily activity for the last 30 days
 OuraClient client = new OuraClient.Builder().withAccessToken("___MY_TOKEN_HERE___").build();
 LocalDateTime end = LocalDateTime.now();
 LocalDateTime start = end.minus(30L, ChronoUnit.DAYS);
-// Fetches the first page
+// Fetch the first page
 List<DailyActivityModel> data = new ArrayList<>();
 DailyActivityResponse response = client.getDailyActivity(start.toLocalDate(), end.toLocalDate(), null);
 data.addAll(response.getData());
+// Iterate over the rest of the data
 while(response.getNextToken() != null) {
     response = client.getDailyActivity(start.toLocalDate(), end.toLocalDate(), response.getNextToken());
     data.addAll(response.getData());
